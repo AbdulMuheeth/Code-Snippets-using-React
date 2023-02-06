@@ -1,14 +1,42 @@
 import React from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import html2canvas from "html2canvas";
+import {useMediaQuery} from "@mui/material";
 
 const EditorLayout = (props) => {
   const editorRef = React.useRef(null);
+  const screenshotRef = React.useRef(false);
 
   const [code, setCode] = React.useState("console.log('hello')");
   const [editorMounted, setEditorMounted] = React.useState(false);
   const [screenshot, setScreenshot] = React.useState("");
+  const isSmallScreen = useMediaQuery('(max-width:899.5px)');
+
+  React.useEffect(()=>{
+    
+    if (!screenshotRef.current)
+      return
+
+    editorRef.current.layout();
+    const link = document.createElement('a');
+    link.href = screenshot;
+    link.setAttribute(
+      'download',
+      `screenshot.png`,
+    );
+    
+    // Append to html link element page
+    document.body.appendChild(link);
+    
+    // Start download
+    link.click();
+    
+    // Clean up and remove the link
+    screenshotRef.current = false
+    link.parentNode.removeChild(link)
+
+  },[screenshot])
 
   const handleClick = async () => {
     if (!editorMounted) return;
@@ -23,11 +51,11 @@ const EditorLayout = (props) => {
 
     // console.log("clk",editorRef,editorRef.current.getValue(),editorRef.current.getDomNode(),editorRef.current.getContentHeight(),editorRef.current.getContentWidth());
     html2canvas(editorRef.current.getDomNode())
-      .then((img) => setScreenshot(img.toDataURL()))
-      .then(
-        // Reset the height of the editor back to its original value
-        editorRef.current.layout()
-      );
+    .then((img) => {
+      screenshotRef.current = true
+      setScreenshot(img.toDataURL())
+    })
+     
   };
 
   const handleCodeChange = (Changedvalue) => {
@@ -36,17 +64,21 @@ const EditorLayout = (props) => {
 
   return (
     <>
-      <Button onClick={handleClick}>Take ScreenShot</Button>
 
-      <div>
+    {/* <Grid container spacing={2}> */}
+    {/* editorRef && editorRef.current. */}
+      {/* <Grid item xs={12} md={8}> */}
+      <div
+        style={isSmallScreen?{display:'flex',justifyContent:"center"}:{}}
+      >
         <Editor
           value={code}
           language={props.language || "javascript"}
           theme={props.theme || "all-hallows-eve"}
           onChange={handleCodeChange}
           className={"myeditor"}
-          height={"100vh"}
-          width={"80vw"}
+          height={"80vh"}
+          width={isSmallScreen?"95vw":"65vw"}
           // onMount={onMountFunc}
           options={{
             automaticLayout: true,
@@ -58,10 +90,16 @@ const EditorLayout = (props) => {
           }}
         />
       </div>
+      {/* </Grid> */}
 
-      <h2> ScreenShot </h2>
+      <div style={{ marginTop:"2%",maxWidth:"100%",display: "flex",justifyContent: "center",alignItems: "end"}} >
+        <Button onClick={handleClick}>Take ScreenShot</Button>
+      </div>
+
+      {/* <h2> ScreenShot </h2> */}
 
       {screenshot && <img src={screenshot} />}
+    {/* </Grid> */}
     </>
   );
 };
