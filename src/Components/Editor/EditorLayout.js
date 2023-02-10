@@ -8,7 +8,7 @@ const EditorLayout = (props) => {
   const editorRef = React.useRef(null);
   const screenshotRef = React.useRef(false);
 
-  const [code, setCode] = React.useState("console.log('hello')");
+  
   const [editorMounted, setEditorMounted] = React.useState(false);
   const [screenshot, setScreenshot] = React.useState("");
   const isSmallScreen = useMediaQuery('(max-width:899.5px)');
@@ -59,7 +59,7 @@ const EditorLayout = (props) => {
   };
 
   const handleCodeChange = (Changedvalue) => {
-    setCode(Changedvalue);
+    props.setCode(Changedvalue);
   };
 
   return (
@@ -72,9 +72,9 @@ const EditorLayout = (props) => {
         style={isSmallScreen?{display:'flex',justifyContent:"center"}:{}}
       >
         <Editor
-          value={code}
+          value={props.code}
           language={props.language || "javascript"}
-          theme={props.theme || "all-hallows-eve"}
+          theme={props.theme||"amy"}
           onChange={handleCodeChange}
           className={"myeditor"}
           height={"80vh"}
