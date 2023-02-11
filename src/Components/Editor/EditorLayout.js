@@ -1,6 +1,6 @@
 import React from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
-import { Button, Grid } from "@mui/material";
+import Editor from "@monaco-editor/react";
+import { Button} from "@mui/material";
 import html2canvas from "html2canvas";
 import {useMediaQuery} from "@mui/material";
 
@@ -8,7 +8,6 @@ const EditorLayout = (props) => {
   const editorRef = React.useRef(null);
   const screenshotRef = React.useRef(false);
 
-  
   const [editorMounted, setEditorMounted] = React.useState(false);
   const [screenshot, setScreenshot] = React.useState("");
   const isSmallScreen = useMediaQuery('(max-width:899.5px)');
@@ -65,9 +64,6 @@ const EditorLayout = (props) => {
   return (
     <>
 
-    {/* <Grid container spacing={2}> */}
-    {/* editorRef && editorRef.current. */}
-      {/* <Grid item xs={12} md={8}> */}
       <div
         style={isSmallScreen?{display:'flex',justifyContent:"center"}:{}}
       >
@@ -90,16 +86,15 @@ const EditorLayout = (props) => {
           }}
         />
       </div>
-      {/* </Grid> */}
+      
 
       <div style={{ marginTop:"2%",maxWidth:"100%",display: "flex",justifyContent: "center",alignItems: "end"}} >
-        <Button onClick={handleClick}>Take ScreenShot</Button>
+        <Button onClick={handleClick} variant="outlined" sx={{color:"#013A63",fontWeight:700,"&:hover":{background:"#013A63",color:"white"}}} >Take ScreenShot</Button>
       </div>
 
       {/* <h2> ScreenShot </h2> */}
-
-      {screenshot && <img src={screenshot} />}
-    {/* </Grid> */}
+      {/* {screenshot && <img src={screenshot} />} */}
+    
     </>
   );
 };

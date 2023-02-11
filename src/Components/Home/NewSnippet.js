@@ -3,7 +3,6 @@ import {
   FormControl,
   IconButton,
   Modal,
-  TextareaAutosize,
   TextField,
   Tooltip,
   Typography,
@@ -28,10 +27,9 @@ const NewSnippet = () => {
     setOpen(false);
   };
 
-  const navigateToSnip = () => {};
+  // const navigateToSnip = () => {};
 
   const createReference = () => {
-    console.log("create reference");
     const timestamp = new Date().getTime().toString();
 
     const newSnip = {
@@ -50,12 +48,19 @@ const NewSnippet = () => {
   };
 
   const createNewSnip = () => {
-    handleOpen();
     // create an empty reference
     // timestamp as id
     // store the id
     // using id open the editor
+    handleOpen();
   };
+
+  const validateForm = () => {
+    if(newName !== "" || newName.length!==0)
+      return true;
+    alert("Please enter Name");
+    return false;
+  }
 
   return (
     <>
@@ -68,10 +73,12 @@ const NewSnippet = () => {
             bottom: 60,
             right: 80,
             zIndex: 2000,
-            width: 50,
-            height: 50,
-            border: "0.25px solid grey",
+            width: 65,
+            height: 65,
+            border: "0.25px solid #013A63",
             fontSize: "30px",
+            fontWeight:900,
+            color:"#013A63","&:hover":{background:"#013A63",color:"white"}
           }}
         >
           +
@@ -84,8 +91,8 @@ const NewSnippet = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
+            width: 500,
+            bgcolor: "white",
             border: "2px solid #000",
             boxShadow: 24,
             display: "flex",
@@ -95,7 +102,7 @@ const NewSnippet = () => {
             p: 4,
           }}
         >
-          <Typography id="title" variant="h6" component="h2">
+          <Typography id="title" variant="h6" component="h2" sx={{marginBottom:3}}>
             Create New Snippet
           </Typography>
           <form>
@@ -104,11 +111,12 @@ const NewSnippet = () => {
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
+                // error={!newName}
                 onChange={(e) => {
                   setNewName(e.target.value);
                 }}
+                sx={{ width: 250,marginBottom:1 }}
                 required
-                sx={{ width: 160 }}
               />
             </FormControl>
             <br />
@@ -121,22 +129,27 @@ const NewSnippet = () => {
                 onChange={(e) => {
                   setNewDescription(e.target.value);
                 }}
-                sx={{ width: 160 }}
+                sx={{ width: 250,marginBottom:2 }}
               />
             </FormControl>
             <br />
 
-            <Button
-              onClick={() => {
-                createReference();
-                handleClose();
-              }}
-            >
-              {" "}
-              Create{" "}
-            </Button>
+            <div style={{display:'flex',justifyContent:'space-around'}}>
+              <Button
+                type="submit"
+                onClick={() => {
+                  if(validateForm())
+                  {
+                    createReference();
+                    handleClose();
+                  }
+                }}
+              >
+                Create
+              </Button>
+              <Button onClick={handleClose}>cancel</Button>
+            </div>
           </form>
-          <Button onClick={handleClose}>cancel</Button>
         </Box>
       </Modal>
     </>

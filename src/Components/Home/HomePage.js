@@ -1,24 +1,18 @@
 import {
   Card,
-  CardActions,
   CardContent,
   Grid,
   Typography,
   Button,
-  CardActionArea,
-  IconButton,
-  Tooltip,
 } from "@mui/material";
-import React, { useCallback } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { SnippetsData } from "../../App";
-import CodeSnippetLayout from "../Editor/CodeSnippetLayout";
 import NewSnippet from "./NewSnippet";
 
 const HomePage = () => {
   const { snipData, updateSnip } = React.useContext(SnippetsData);
 
-  // console.log(data);
 
   const removeSnip = (id) => {
     let i = snipData.length;
@@ -33,34 +27,21 @@ const HomePage = () => {
 
   return (
     <>
-      <Grid container spacing={4} justifyContent={"center"}>
+      <Grid container spacing={4} justifyContent={"center"} sx={{padding:"8px"}}>
         {snipData.map((snippet, i) => {
           return (
-            <Grid item xs={6} sm={4} md={3} key={snippet.id}>
+            <Grid item xs={6} sm={4} md={3} key={snippet.id} sx={{}}>
               <Card
                 sx={
                   {
-                    // maxWidth: 345,
-                    // height: "200px",
-                    // display: "flex",
-                    // flexDirection: "column",
-                    // "& .hoverContent": {
-                    //     display: "none"
-                    //   },
-                    //   "&:hover .hoverContent": {
-                    //     display: "block"
-                    //   },
-                    //   "&:hover .mainContent": {
-                    //     display: "none"
-                    //   }
+                    maxWidth: 300,
                   }
                 }
               >
-                {/* <CardActionArea > */}
                 <CardContent
                   sx={{
-                    maxWidth: 345,
-                    height: "150px",
+                    maxWidth: 300,
+                    minHeight: "150px",
                     display: "flex",
                     flexDirection: "column",
                   }}
@@ -98,9 +79,6 @@ const HomePage = () => {
                       <Typography
                         sx={{
                           fontSize: 12,
-                          // display: "flex",
-                          // flexDirection: "column",
-                          // justifyContent: "space-between",
                           marginTop: "16px",
                         }}
                         color="text.secondary"
@@ -118,21 +96,17 @@ const HomePage = () => {
                       marginTop: "16px",
                     }}
                   >
-                    <Button onClick={() => removeSnip(snippet.id)}>
+                    <Button onClick={() => removeSnip(snippet.id)} variant={"outlined"} color="error">
                       Remove
                     </Button>
                   </div>
                 </CardContent>
-                {/* </CardActionArea> */}
               </Card>
             </Grid>
           );
         })}
       </Grid>
-      <Tooltip open={true} title="Add" placement="top" arrow>
-        {/* <IconButton variant='outlined' onClick={""} sx={{ position: "fixed", bottom:60, right:80, zIndex: 2000,width:50,height:50,border:"0.25px solid grey",fontSize:"30px" }}>+</IconButton> */}
-        <NewSnippet />
-      </Tooltip>
+      <NewSnippet />
     </>
   );
 };

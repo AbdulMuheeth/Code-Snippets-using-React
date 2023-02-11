@@ -1,18 +1,18 @@
 export const defaultSnippets = [
   {
-    name: "My First Snippet",
+    name: "My First python program",
     id: "IDfromtimeStamp",
-    description: "Description",
-    code: "console.log('hi')",
-    language: "javascript",
+    description: "Hello World in Python",
+    code: "def func():\n    print(\"hello world\")\n\nfunc()",
+    language: "python",
     theme: "vs-dark",
   },
   {
-    name: "My Second Snippet",
+    name: "My First JS program",
     id: "IDfromtimeStamp2",
-    description: "Description2",
-    code: "",
-    language: "python",
+    description: "Hello World in Javascript",
+    code: "function func(){\r\n    console.log(\"Hello World\")\r\n}\r\n\r\nfunc()",
+    language: "javascript",
     theme: "amy",
   }
 ];
