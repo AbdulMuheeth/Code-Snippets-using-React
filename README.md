@@ -2,9 +2,11 @@
 
 # code snippets
 ### Let's you create code snippets in many languages and take screenshots of code.
-<!-- link from website -->
+
 " Code Snippets " is created using ReactJs, Monaco Editor, and MUI.
-A Quick Walkthrough code snippets
+
+### A Quick Walkthrough to Code Snippets
+
 - ##### Click on + button to create a new Snippet. Enter snippet name, and description about snippet.
 
     [![newSnip](https://drive.google.com/uc?id=1QI87QrtK57dDzmXr-izbXeO0OlC9ysTa)]()
